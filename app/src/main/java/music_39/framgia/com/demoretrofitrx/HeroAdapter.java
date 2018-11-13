@@ -1,7 +1,10 @@
 package music_39.framgia.com.demoretrofitrx;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +20,7 @@ public class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
 
     private Context mContext;
     private List<Hero> mHeroList;
+    private int mPosition;
 
     public HeroAdapter(Context context) {
         mContext = context;
@@ -50,7 +54,7 @@ public class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
         return mHeroList != null ? mHeroList.size() : 0;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView mTextViewHeroName;
         private TextView mTextViewTeamHero;
@@ -61,6 +65,7 @@ public class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
             mTextViewHeroName = itemView.findViewById(R.id.textViewNameHero);
             mTextViewTeamHero = itemView.findViewById(R.id.textViewTeamHero);
             mImageViewHero = itemView.findViewById(R.id.imageViewHero);
+            itemView.setOnClickListener(this);
         }
 
         private void bind() {
@@ -71,6 +76,24 @@ public class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
                     .load(hero.getImageurl())
                     .apply(new RequestOptions().placeholder(R.drawable.ic_launcher_background))
                     .into(mImageViewHero);
+        }
+
+        @Override
+        public void onClick(View v) {
+            mPosition = getAdapterPosition();
+            showSnackbar(v, "Real Name: "+mHeroList.get(mPosition).getRealname());
+        }
+
+        public void showSnackbar(View view, String message) {
+            final Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
+            snackbar.getView().setBackgroundColor(Color.DKGRAY);
+            snackbar.setAction("OK", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    snackbar.dismiss();
+                }
+            });
+            snackbar.show();
         }
     }
 }

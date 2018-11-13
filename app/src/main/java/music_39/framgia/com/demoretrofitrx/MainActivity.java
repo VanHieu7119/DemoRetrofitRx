@@ -2,6 +2,7 @@ package music_39.framgia.com.demoretrofitrx;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -60,5 +61,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
         mCompositeDisposable.add(disposable);
+
     }
 }
