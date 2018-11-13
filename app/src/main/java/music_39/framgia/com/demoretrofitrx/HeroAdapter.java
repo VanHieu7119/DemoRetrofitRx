@@ -81,12 +81,15 @@ public class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.ViewHolder> {
         @Override
         public void onClick(View v) {
             mPosition = getAdapterPosition();
-            showSnackbar(v, "Real Name: "+mHeroList.get(mPosition).getRealname());
+            showSnackbar(v, "Real Name: "+mHeroList.get(mPosition).getRealname()+"\n"+mHeroList.get(mPosition).getBio());
         }
 
         public void showSnackbar(View view, String message) {
-            final Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
+            final Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE);
             snackbar.getView().setBackgroundColor(Color.DKGRAY);
+            snackbar.getView().getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
+            TextView textView = snackbar.getView().findViewById(android.support.design.R.id.snackbar_text);
+            textView.setMaxLines(40);
             snackbar.setAction("OK", new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
